@@ -9,7 +9,7 @@ public class OpenDBWindow extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        DatabaseDialog dbDialog = new DatabaseDialog();
+        DatabaseDialog dbDialog = new DatabaseDialog(e.getProject());
         boolean b = dbDialog.showAndGet();
     }
 }

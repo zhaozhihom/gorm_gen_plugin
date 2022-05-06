@@ -46,7 +46,7 @@ public class ConnectDialog extends DialogWrapper {
             List<TableModel> tables = new ArrayList<>();
             while(rs.next()) {
                 String tableName = rs.getString(1);
-                tables.add(new TableModel(tableName, null));
+                tables.add(new TableModel(tableName, ""));
             }
             DatabaseModel databaseModel = new DatabaseModel();
             databaseModel.setHost(hostText);

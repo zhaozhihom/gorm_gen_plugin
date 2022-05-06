@@ -74,4 +74,8 @@ public class DatabaseTableModel extends AbstractTableModel {
         this.tableModelList = tableModelList;
         fireTableDataChanged();
     }
+
+    public List<TableModel> getTableModelList() {
+        return tableModelList;
+    }
 }
