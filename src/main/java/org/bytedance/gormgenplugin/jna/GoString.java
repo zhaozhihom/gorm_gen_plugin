@@ -1,6 +1,5 @@
 package org.bytedance.gormgenplugin.jna;
 
-import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 
 import java.nio.charset.StandardCharsets;
@@ -14,16 +13,16 @@ public class GoString extends Structure {
 
         public ByValue(String str) {
             // golang 中 string 没有 null
-            this.value = str == null ? "" : str;
-            this.n = this.value.getBytes(StandardCharsets.UTF_8).length;
+            this.p = str == null ? "" : str;
+            this.n = this.p.getBytes(StandardCharsets.UTF_8).length;
         }
     }
-    public String value;
+    public String p;
     public long n;
 
     @Override
     protected List<String> getFieldOrder(){
-        return Arrays.asList("value","n");
+        return Arrays.asList("p","n");
     }
 
 }

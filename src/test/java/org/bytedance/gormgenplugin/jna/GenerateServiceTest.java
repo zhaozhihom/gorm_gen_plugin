@@ -13,6 +13,6 @@ public class GenerateServiceTest {
 
     @Test
     public void gormGen() {
-        new GenerateService().gormGen("dal/query", "root:@(127.0.0.1:3306)/gorm_test", "user_role,users", ",");
+        new GenerateService().gormGen("dal/query", "root:@(127.0.0.1:3306)/gorm_test", "user_role,users", ",", "");
     }
 }

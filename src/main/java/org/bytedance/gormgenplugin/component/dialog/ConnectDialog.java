@@ -1,5 +1,6 @@
 package org.bytedance.gormgenplugin.component.dialog;
 
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.Messages;
 import org.bytedance.gormgenplugin.component.MetaData;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConnectDialog extends DialogWrapper {
+
+    private static final Logger LOG = Logger.getInstance(ConnectDialog.class);
     private JPanel contentPane;
     private JTextField host;
     private JTextField username;
@@ -57,6 +60,7 @@ public class ConnectDialog extends DialogWrapper {
             databaseModel.setTables(tables);
             MetaData.DB_MODELS.addElement(databaseModel);
         } catch (SQLException e) {
+            LOG.error("connect to database err:", e);
             Messages.showErrorDialog("无法连接到数据库，请重新输入：" + e.getMessage(), "连接失败!");
             return;
         }
