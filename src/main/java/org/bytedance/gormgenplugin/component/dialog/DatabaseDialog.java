@@ -10,6 +10,7 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.components.JBList;
+import org.apache.pdfbox.io.IOUtils;
 import org.bytedance.gormgenplugin.component.MetaData;
 import org.bytedance.gormgenplugin.jna.GenerateService;
 import org.bytedance.gormgenplugin.model.DatabaseModel;
@@ -132,8 +133,9 @@ public class DatabaseDialog extends DialogWrapper {
                     }
                 }
                 String goModulePath = "";
+                FileInputStream fileInputStream = null;
                 try {
-                    FileInputStream fileInputStream = new FileInputStream(project.getBasePath() + "/" + "go.mod");
+                    fileInputStream = new FileInputStream(project.getBasePath() + "/" + "go.mod");
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
                     while ((goModulePath = bufferedReader.readLine()) != null) {
                         if (StringUtil.startsWith(goModulePath, "module")) {
@@ -145,6 +147,8 @@ public class DatabaseDialog extends DialogWrapper {
                     LOG.error("generate code task err:", e);
                     Messages.showErrorDialog("go.mod文件格式错误！", "异常!");
                     return null;
+                } finally {
+                    IOUtils.closeQuietly(fileInputStream);
                 }
 
                 String msg = generateService.gormGen(absoluteOutPath, url, tables.toString(), models.toString(), goModulePath);

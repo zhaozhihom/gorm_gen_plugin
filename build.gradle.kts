@@ -1,10 +1,10 @@
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.6.0"
+    id("org.jetbrains.intellij") version "1.8.0"
 }
 
 group = "org.bytedance"
-version = "1.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -12,9 +12,8 @@ repositories {
 
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
 intellij {
-    version.set("2022.1.1")
-
-    plugins.set(listOf("com.intellij.java"))
+    version.set("2022.2")
+    type.set("GO")
 }
 
 tasks {
@@ -25,8 +24,8 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("212")
-        untilBuild.set("222.*")
+        sinceBuild.set("213")
+        untilBuild.set("223.*")
     }
 
     signPlugin {

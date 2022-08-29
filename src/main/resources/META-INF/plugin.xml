@@ -5,10 +5,10 @@
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>GormGenPlugin</name>
+    <name>GormGenTool</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="zhaozhihong@bytedance.com" url="https://www.bytedance.com">ByteDance</vendor>
+    <vendor email="zhaozhihong@bytedance.com" url="https://github.com/zhaozhihom/gorm_gen_plugin">ByteDance</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
@@ -16,13 +16,16 @@
     <description>
         <![CDATA[
         <p>Jetbrains gorm gen plugin.</p>
-        <p>Support by <a href="https://bytedance.feishu.cn/wiki/wikcnbYLEL78aOYLBsT2ExUGiEd">gorm gen</a></p>
+        <p>Support by <a href="https://github.com/go-gorm/gen">gorm gen</a></p>
     ]]>
     </description>
 
+    <!-- Requires the GoLand module -->
+    <depends>com.intellij.modules.goland</depends>
     <!-- Product and plugin compatibility requirements.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
+
 
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
