@@ -4,6 +4,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.Messages;
 import org.bytedance.gormgenplugin.component.MetaData;
+import org.bytedance.gormgenplugin.db.Conn;
 import org.bytedance.gormgenplugin.model.DatabaseModel;
 import org.bytedance.gormgenplugin.model.TableModel;
 import org.jetbrains.annotations.Nullable;
@@ -41,14 +42,11 @@ public class ConnectDialog extends DialogWrapper {
         String databaseText = this.database.getText();
         String usernameText = this.username.getText();
         String passwordText = this.password.getText();
+        Connection conn = null;
         try {
-            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            Connection conn = DriverManager.getConnection(String.format(url, hostText, portText, databaseText), usernameText, passwordText);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("Show tables");
+            List<String> tableNames = Conn.GetTableFromDBConn(hostText, portText, databaseText, usernameText, passwordText);
             List<TableModel> tables = new ArrayList<>();
-            while(rs.next()) {
-                String tableName = rs.getString(1);
+            for (String tableName : tableNames) {
                 tables.add(new TableModel(tableName, ""));
             }
             DatabaseModel databaseModel = new DatabaseModel();
@@ -59,10 +57,18 @@ public class ConnectDialog extends DialogWrapper {
             databaseModel.setPassword(passwordText);
             databaseModel.setTables(tables);
             MetaData.DB_MODELS.addElement(databaseModel);
-        } catch (SQLException e) {
+        } catch (RuntimeException e) {
             LOG.error("connect to database err:", e);
             Messages.showErrorDialog("无法连接到数据库，请重新输入：" + e.getMessage(), "连接失败!");
             return;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
         super.doOKAction();
     }

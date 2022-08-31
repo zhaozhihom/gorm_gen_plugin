@@ -8,15 +8,34 @@
     <name>GormGenTool</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="zhaozhihong@bytedance.com" url="https://github.com/zhaozhihom/gorm_gen_plugin">ByteDance</vendor>
+    <vendor email="zhaozhihong@bytedance.com" url="https://github.com/zhaozhihom">ZhiHom Zhao</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
-    <description>
-        <![CDATA[
-        <p>Jetbrains gorm gen plugin.</p>
-        <p>Support by <a href="https://github.com/go-gorm/gen">gorm gen</a></p>
+    <description><![CDATA[
+        <h1>IntelliJ-based gorm gen plugin.</h1>
+        GORM generator for go language, it can generate model struct & CRUD code from database.
+        <p>Features:</p>
+        <ul>
+            <li>
+                DB connect Management. (only support Mysql now)
+            </li>
+            <li>
+                Generate model and query file from db tables.
+            </li>
+        </ul>
+        The location of plugin is <b>Tools</b>|<b>Gorm Generator</b>
+        <p>Steps:</p>
+        <ul>
+            <li>
+                Click the "new connection" button to add new database connect.
+            </li>
+            <li>
+                Select tables and click the "generate" button to generate files.
+            </li>
+        </ul>
+        <p>Support by <a href="https://github.com/go-gorm/gen">gorm gen</a>, you can learn to use the query method here.</p>
     ]]>
     </description>
 

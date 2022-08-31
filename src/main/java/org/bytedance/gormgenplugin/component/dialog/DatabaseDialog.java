@@ -8,10 +8,10 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.components.JBList;
 import org.apache.pdfbox.io.IOUtils;
 import org.bytedance.gormgenplugin.component.MetaData;
+import org.bytedance.gormgenplugin.db.Conn;
 import org.bytedance.gormgenplugin.jna.GenerateService;
 import org.bytedance.gormgenplugin.model.DatabaseModel;
 import org.bytedance.gormgenplugin.model.TableModel;
@@ -25,11 +25,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DatabaseDialog extends DialogWrapper {
@@ -42,6 +39,7 @@ public class DatabaseDialog extends DialogWrapper {
     private JBList dbList;
     private JTable dbTable;
     private JButton buttonNewConnect;
+    private JButton buttonRefresh;
 
     private GenerateService generateService = new GenerateService();
 
@@ -56,6 +54,13 @@ public class DatabaseDialog extends DialogWrapper {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onAddConnect();
+            }
+        });
+
+        buttonRefresh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onRefreshConnect();
             }
         });
 
@@ -85,7 +90,35 @@ public class DatabaseDialog extends DialogWrapper {
 
     private void onAddConnect() {
         ConnectDialog connectDialog = new ConnectDialog();
-        boolean b = connectDialog.showAndGet();
+        connectDialog.showAndGet();
+    }
+
+    private void onRefreshConnect() {
+        DatabaseModel currDb = getCurrentDatabaseModel();
+        List<TableModel> tableModels = currDb.getTables();
+        try {
+            List<String> tableNames = Conn.GetTableFromDBConn(currDb.getHost(), currDb.getPort(), currDb.getDatabase(),
+                    currDb.getUsername(), currDb.getPassword());
+            List<TableModel> newTableList = new ArrayList<>();
+            Map<String, TableModel> map = new HashMap<>();
+            for (TableModel tm : tableModels) {
+                map.put(tm.getTableName(), tm);
+            }
+            for (String tableName : tableNames) {
+                if (map.containsKey(tableName)) {
+                    newTableList.add(map.get(tableName));
+                } else {
+                    TableModel tableModel = new TableModel(tableName, "");
+                    newTableList.add(tableModel);
+                }
+            }
+            currDb.setTables(newTableList);
+            MetaData.TABLE_MODELS.setTableModelList(newTableList);
+        } catch (RuntimeException e) {
+            LOG.error("connect db err: ", e);
+            Messages.showErrorDialog("无法连接到数据库，请重新输入：" + e.getMessage(), "连接失败!");
+            throw new RuntimeException(e);
+        }
     }
 
 
