@@ -1,22 +1,21 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>org.bytedance.gormgenplugin</id>
+    <id>org.zhihom.gormgenplugin</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
     <name>GormGenTool</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="zhaozhihong@bytedance.com" url="https://github.com/zhaozhihom">ZhiHom Zhao</vendor>
+    <vendor email="zhaozhihong@bytedance.com" url="https://github.com/zhaozhihom/gorm_gen_plugin">ZhiHom Zhao</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-        <h1>IntelliJ-based gorm gen plugin.</h1>
-        GORM generator for go language, it can generate model struct & CRUD code from database.
-        <p>Features:</p>
+        <p>GORM generator for golang, it can generate model struct & CRUD code from database.</p>
+        <p><b>Features:</b></p>
         <ul>
             <li>
                 DB connect Management. (only support Mysql now)
@@ -25,8 +24,8 @@
                 Generate model and query file from db tables.
             </li>
         </ul>
-        The location of plugin is <b>Tools</b>|<b>Gorm Generator</b>
-        <p>Steps:</p>
+        <p>The location of plugin is <b>Tools</b>|<b>Gorm Generator</b></p>
+        <p><b>Steps:</b></p>
         <ul>
             <li>
                 Click the "new connection" button to add new database connect.
@@ -49,10 +48,10 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="org.bytedance.gormgenplugin.service.DataService"/>
+        <applicationService serviceImplementation="org.zhihom.gormgenplugin.service.DataService"/>
     </extensions>
     <actions>
-        <action id="org.bytedance.gormgenplugin.action.OpenDBWindow" class="org.bytedance.gormgenplugin.action.OpenDBWindow"
+        <action id="org.zhihom.gormgenplugin.action.OpenDBWindow" class="org.zhihom.gormgenplugin.action.OpenDBWindow"
                 text="Gorm Generator" description="Gorm gen plugin">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
             <keyboard-shortcut keymap="$default" first-keystroke="shift meta G"/>

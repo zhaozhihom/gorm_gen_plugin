@@ -1,0 +1,1 @@
+# Gorm Generator For Goland.
