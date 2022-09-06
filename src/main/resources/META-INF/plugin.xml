@@ -8,7 +8,7 @@
     <name>GormGenTool</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="zhaozhihong@bytedance.com" url="https://github.com/zhaozhihom/gorm_gen_plugin">ZhiHom Zhao</vendor>
+    <vendor email="zhaozhihong.job@gmail.com" url="https://github.com/zhaozhihom/gorm_gen_plugin">ZhiHom Zhao</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
@@ -37,6 +37,15 @@
         <p>Support by <a href="https://github.com/go-gorm/gen">gorm gen</a>, you can learn to use the query method here.</p>
     ]]>
     </description>
+
+    <change-notes>
+        <![CDATA[
+        <b>1.0.6</b>
+        <ul>
+            <li>First published version</li>
+        </ul>
+    ]]>
+    </change-notes>
 
     <!-- Requires the GoLand module -->
     <depends>com.intellij.modules.goland</depends>

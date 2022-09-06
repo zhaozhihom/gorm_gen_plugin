@@ -3,6 +3,9 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+src/main/resources/darwin/
+src/main/resources/linux-x86-64/
+src/main/resources/win32-x86-64/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
