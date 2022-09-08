@@ -81,8 +81,8 @@ public class DatabaseDialog extends DialogWrapper {
         dbTable.setModel(MetaData.TABLE_MODELS);
         dbTable.setRowSelectionAllowed(false);
 
-        setCancelButtonText("取消");
-        setOKButtonText("生成");
+        setCancelButtonText("Cancel");
+        setOKButtonText("Generate");
 
         init();
 
@@ -116,7 +116,7 @@ public class DatabaseDialog extends DialogWrapper {
             MetaData.TABLE_MODELS.setTableModelList(newTableList);
         } catch (RuntimeException e) {
             LOG.error("connect db err: ", e);
-            Messages.showErrorDialog("无法连接到数据库，请重新输入：" + e.getMessage(), "连接失败!");
+            Messages.showErrorDialog("connect to db failed!：" + e.getMessage(), "failed!");
             throw new RuntimeException(e);
         }
     }
@@ -137,20 +137,20 @@ public class DatabaseDialog extends DialogWrapper {
 
             @Override
             protected Message compute(@NotNull ProgressIndicator indicator) throws Exception {
-                indicator.setText("正在生成，请稍侯...");
+                indicator.setText("Generating，Please waiting...");
                 indicator.setIndeterminate(true);
                 String absoluteOutPath = project.getBasePath() + "/" + outPath;
 
                 DatabaseModel currDB = getCurrentDatabaseModel();
                 if (currDB == null) {
-                    return new Message("参数错误!", "请选择数据库！");
+                    return new Message("invalid param!", "Please choose a database!");
                 }
                 String url = String.format(urlFormat, currDB.getUsername(), currDB.getPassword(), currDB.getHost(), currDB.getPort(), currDB.getDatabase());
 
                 List<TableModel> tableModelList = MetaData.TABLE_MODELS.getTableModelList();
                 List<TableModel> tableModels = tableModelList.stream().filter(TableModel::getSelected).collect(Collectors.toList());
                 if (tableModels.size() == 0) {
-                    return new Message("参数错误!", "请选择表！");
+                    return new Message("invalid param!", "Please choose a table!");
                 }
                 StringBuilder tables = new StringBuilder();
                 StringBuilder models = new StringBuilder();
@@ -178,14 +178,14 @@ public class DatabaseDialog extends DialogWrapper {
                     }
                 } catch (Exception e) {
                     LOG.error("generate code task err:", e);
-                    return new Message("错误", "go.mod错误：" + e.getMessage());
+                    return new Message("error", "go.mod:" + e.getMessage());
                 } finally {
                     IOUtils.closeQuietly(fileInputStream);
                 }
 
                 String msg = generateService.gormGen(absoluteOutPath, url, tables.toString(), models.toString(), goModulePath);
                 if (StringUtil.isNotEmpty(msg)) {
-                    return new Message("错误", "生成失败！ " + msg);
+                    return new Message("error", "Generate failed:" + msg);
                 } else {
                     return null;
                 }

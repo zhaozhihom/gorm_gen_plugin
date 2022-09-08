@@ -7,7 +7,7 @@ public class DatabaseTableModel extends AbstractTableModel {
     private List<TableModel> tableModelList;
 
     private final String[] columnNames = new String[] {
-            "表名", "结构体名", "是否选择"
+            "table", "struct", "choose"
     };
     private final Class[] columnClass = new Class[] {
             String.class, String.class, Boolean.class

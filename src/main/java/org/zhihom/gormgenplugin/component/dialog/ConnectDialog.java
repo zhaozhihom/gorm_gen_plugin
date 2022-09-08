@@ -29,8 +29,8 @@ public class ConnectDialog extends DialogWrapper {
     public ConnectDialog() {
         super(true);
 
-        setOKButtonText("添加");
-        setCancelButtonText("取消");
+        setOKButtonText("Add");
+        setCancelButtonText("Cancel");
 
         init();
     }
