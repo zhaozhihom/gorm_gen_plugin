@@ -178,8 +178,7 @@ public class DatabaseDialog extends DialogWrapper {
                     }
                 } catch (Exception e) {
                     LOG.error("generate code task err:", e);
-                    Messages.showErrorDialog("go.mod文件格式错误！", "异常!");
-                    return null;
+                    return new Message("错误", "go.mod错误：" + e.getMessage());
                 } finally {
                     IOUtils.closeQuietly(fileInputStream);
                 }
