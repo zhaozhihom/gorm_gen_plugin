@@ -40,6 +40,10 @@
 
     <change-notes>
         <![CDATA[
+        <b>1.0.8</b>
+        <ul>
+            <li>Support custom model name</li>
+        </ul>
         <b>1.0.6</b>
         <ul>
             <li>First published version</li>
